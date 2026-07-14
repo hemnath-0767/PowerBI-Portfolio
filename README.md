@@ -67,7 +67,7 @@ Brazil Dashboard Project
 
 Example:
 
-![Dashboard](screenshots/brazil_dashboard_page-0001.jpg)
+![Dashboard](https://github.com/hemnath-0767/PowerBI-Portfolio/blob/main/screenshots/brazil%20dashboard_page-0001.jpg)
 
 ---
 
