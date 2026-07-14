@@ -1,0 +1,249 @@
+table olist_order_items_dataset
+	lineageTag: 5177d77c-7a47-4a17-9cfd-a025b1cdb6ce
+
+	measure 'Total Revenue' = sum(olist_order_items_dataset[Total Amount ])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 6dade941-b315-40c6-b611-1f92354883fb
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'PYTD Revenue' = CALCULATE(SUM(olist_order_items_dataset[Total Amount ]),SAMEPERIODLASTYEAR(olist_orders_dataset[order_purchase_timestamp].[Date]))
+		lineageTag: 2126d39e-dbd1-4e50-a7d7-aeba4aafd5df
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YOY Sales' = DIVIDE([Total Revenue]-12000000,12000000)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ac474e29-4930-41cc-b4fc-748a9c3801c6
+
+	measure 'Grouth Indicater' =
+			
+			SWITCH(
+			    TRUE(),
+			    [YOY Sales] > 0,UNICHAR(9650),
+			    [YOY Sales] < 0,UNICHAR(9660),
+			    UNICHAR(8213)
+			)
+		lineageTag: 9095a44b-9f1b-4633-9a99-42a13ab49495
+
+	measure 'sales colour' = if([YOY Sales]>0,"Green","Red")
+		lineageTag: 742cb851-5632-4da4-9d48-1f8a1618191d
+
+	measure 'Total Order' = DISTINCTCOUNT(olist_orders_dataset[order_id])
+		formatString: #,0.0
+		lineageTag: 2f3fb1b7-4966-4862-b0ab-d6362826e1e1
+
+	measure 'Average Order Value' = DIVIDE([Total Revenue],[Total Order])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 2d3b125c-dc9f-45f3-aa95-1ad24d9c52ee
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'PYTD Orders' = CALCULATE(DISTINCTCOUNT(olist_order_items_dataset[order_id]),SAMEPERIODLASTYEAR(olist_orders_dataset[order_purchase_timestamp].[Date]))
+		formatString: 0
+		lineageTag: 99191f2b-4201-4750-a21c-99bfb8b7539d
+
+	measure 'YOY Oders' = DIVIDE(olist_order_items_dataset[Total Order]-85000,85000)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: d5302559-6a8b-472b-9ad5-cf538e0716aa
+
+	measure 'Order Indicater' =
+			
+			SWITCH(
+			    TRUE(),
+			    [YOY Oders] > 0,UNICHAR(9650),
+			    [YOY Oders] < 0,UNICHAR(9660),
+			    UNICHAR(8213)
+			)
+		lineageTag: dbfb55af-0299-4cda-bc53-10083471847b
+
+	measure 'Order colour' = if([YOY Oders]>0,"Green","Red")
+		lineageTag: f6ca580e-e8d0-4055-8da3-a85a41a407e8
+
+	measure 'PYTD Average Order Value' = CALCULATE(olist_order_items_dataset[Average Order Value](SAMEPERIODLASTYEAR(olist_orders_dataset[order_purchase_timestamp].[Date])))
+		lineageTag: 904057f6-c114-4958-a2d0-324c57b79fff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YOY Average Order Value' = DIVIDE(olist_order_items_dataset[Average Order Value]-olist_order_items_dataset[PYTD Average Order Value],olist_order_items_dataset[PYTD Average Order Value] )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: bc8a47b1-8a90-41fb-ae34-729f39654735
+
+	measure 'AOV colour' = if([YOY Average Order Value]>0,"Green","Red")
+		lineageTag: 0c46cffc-5e4e-4907-acf5-90899eeaf679
+
+	measure 'AOV Indicater' =
+			
+			SWITCH(
+			    TRUE(),
+			    [YOY Average Order Value] > 0,UNICHAR(9650),
+			    [YOY Average Order Value] < 0,UNICHAR(9660),
+			    UNICHAR(8213)
+			)
+		lineageTag: db0a30ce-b00b-499b-832d-04e9b462638e
+
+	measure 'Assumed Margin' = 0.30
+		lineageTag: f414aff7-a502-4cc9-842a-682922085c07
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Profit' = ```
+			[Total Revenue]*[Assumed Margin] 
+			```
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 61750851-aa46-4788-bff2-e9f348dda9fa
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Profit Margin %' = ```
+			DIVIDE([Total Profit],[Total Revenue]) 
+			```
+		formatString: 0%;-0%;0%
+		lineageTag: e665321b-3e8c-490e-a887-755f82f3f11e
+
+	measure 'profit Indicater' =
+			
+			SWITCH(
+			    TRUE(),
+			    [Profit Margin %] > 0,UNICHAR(9650),
+			    [Profit Margin %] < 0,UNICHAR(9660),
+			    UNICHAR(8213)
+			)
+		lineageTag: 04c0ec94-a8b9-4d2d-a8b5-1dd3b4270799
+
+	measure 'Porfit colour' = if([Profit Margin %]>0,"Green","Red")
+		lineageTag: 4959e44a-bc8c-4834-a917-a9695921bfa2
+
+	measure 'Pre M R' = CALCULATE([Total Revenue],PREVIOUSMONTH(olist_orders_dataset[order_purchase_timestamp].[Date]))
+		lineageTag: ffa6f408-44d2-490f-90ed-40a13d49dec5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'MoM %' = ```
+			DIVIDE([Total Revenue]-[Pre M R],[Pre M R]) 
+			```
+		lineageTag: cc27494c-b516-4ef2-a84c-2e61f87e7eed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Status =
+			SWITCH(TRUE(),[MoM %]>0.10,"Peak",
+			                      [MoM %]<-0.10,"Low",
+			                      "Good"
+			)
+		lineageTag: 4f1ed6be-9332-4d99-a117-dae372a8ed8e
+
+	measure 'Previous Salse' = CALCULATE([Total Revenue],PREVIOUSMONTH(olist_orders_dataset[Order Date]))
+		lineageTag: b30b8c62-f9e4-4be7-9932-1c0175031f9e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Salse Growth' = DIVIDE([Total Revenue]-(6500000),(6500000))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 360d8bb7-06b0-4020-bf1d-882c6d529f91
+
+	measure 'Sales Target' = 15000000
+		formatString: 0
+		lineageTag: f10a889f-42c2-4aa1-b451-4f6109bb0dc0
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Sales target Achievement' = DIVIDE([Total Revenue],[Sales Target],0)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 72038e21-d02a-4c22-a73b-be37a207729d
+
+	column order_id
+		dataType: string
+		lineageTag: 7ca61948-47ba-45b7-af39-4c32bc917705
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e35074fe-8c1a-440a-b282-685d90c2f236
+		summarizeBy: sum
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: 07f2ac8b-1db2-484b-8dc7-449ad0267524
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 08ccb4a1-fbcf-434b-bb50-29b4d7234d5c
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_limit_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 29dd38f9-82db-4372-89a1-a1c5d4726060
+		summarizeBy: none
+		sourceColumn: shipping_limit_date
+
+		variation Variation
+			isDefault
+			relationship: ce7d35ea-253f-49f3-ae82-7daa79420be1
+			defaultHierarchy: LocalDateTable_4dec8160-29fe-44d6-84dd-51eb05fa4b96.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: f475c2e6-70f3-4b2e-8fbf-90e466b220c7
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_value
+		dataType: double
+		lineageTag: e28766d8-df54-44d0-8015-fb7d8924a763
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Amount '
+		dataType: double
+		formatString: 0
+		lineageTag: 183404f7-74b7-46cb-a857-3ccbd698763e
+		summarizeBy: sum
+		sourceColumn: "Total Amount "
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition olist_order_items_dataset = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\My office\archive\olist_order_items_dataset.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"order_id", type text}, {"order_item_id", Int64.Type}, {"product_id", type text}, {"seller_id", type text}, {"shipping_limit_date", type datetime}, {"price", type number}, {"freight_value", type number}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each [order_id] <> null and [order_id] <> ""),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows", {"order_id"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Duplicates", "Total Amount ", each [price]+[freight_value])
+				in
+				    #"Added Custom"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,30 @@
+table Table
+	lineageTag: 473a7efe-720d-42e8-b1e6-60a1605f4e57
+
+	column customer_state
+		dataType: string
+		lineageTag: 144e211c-1988-4a55-89d8-ec87fe839e7d
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'state name'
+		dataType: string
+		lineageTag: d6cc3e85-a921-44e4-bfc6-10581a3a04a9
+		summarizeBy: none
+		sourceColumn: state name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Table = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCg5Q0lEKTsxXCEgszclXitWJVgryAgoFZeYrpKQqeCXmpWYWQcR93YHivpl5icUK7qlFmYnFSrGxAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [customer_state = _t, #"state name" = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"customer_state", type text}, {"state name", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

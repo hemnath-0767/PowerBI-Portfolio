@@ -1,0 +1,44 @@
+table product_category_name_translation
+	lineageTag: 053a20da-7bb2-4688-8876-8b2e1b92c73e
+
+	measure 'Top category' = TOPN(1,VALUES(product_category_name_translation[Product Category]))
+		lineageTag: cd571c53-7728-42f2-9adf-630f83754e42
+
+	measure 'Health beauty' = CALCULATE([Total Revenue],product_category_name_translation[Product Category]= "Health Beauty")
+		lineageTag: 9d5818c7-8308-4a81-8c9a-4d8442c1f13e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'product_category_name '
+		dataType: string
+		lineageTag: 793bf83f-245f-40c4-baa2-5617acb612eb
+		summarizeBy: none
+		sourceColumn: "product_category_name "
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Category'
+		dataType: string
+		lineageTag: 8da7b4dc-7abb-4125-970b-55fed1ebe881
+		summarizeBy: none
+		sourceColumn: Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition product_category_name_translation = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\My office\archive\product_category_name_translation.csv"),[Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}, {"Column2", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","_"," ",Replacer.ReplaceText,{"Column2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Replaced Value",{{"Column1", "product_category_name "}, {"Column2", "Product Category"}}),
+				    #"Removed Top Rows" = Table.Skip(#"Renamed Columns",1),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Removed Top Rows",{{"Product Category", Text.Proper, type text}})
+				in
+				    #"Capitalized Each Word"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

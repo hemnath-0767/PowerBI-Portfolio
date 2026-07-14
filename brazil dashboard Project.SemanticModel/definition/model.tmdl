@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["olist_customers_dataset","olist_orders_dataset","olist_order_items_dataset","olist_products_dataset","product_category_name_translation","Table","olist_order_payments_dataset","olist_order_reviews_dataset","olist_geolocation_dataset"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table olist_customers_dataset
+ref table olist_orders_dataset
+ref table DateTableTemplate_f7f89d33-4468-49ec-a513-1eaf93047936
+ref table LocalDateTable_8d4ea7cb-356a-489a-b4fd-3ddb275dbfa7
+ref table LocalDateTable_1face99b-8823-4750-aa5d-e235b8078aa9
+ref table LocalDateTable_f335df94-90e5-46c0-8c6e-cf21da18565b
+ref table LocalDateTable_16b76d48-0742-43e7-95ca-cd6e008b7034
+ref table LocalDateTable_070d540b-8374-468b-87e9-fa579643c016
+ref table olist_order_items_dataset
+ref table LocalDateTable_4dec8160-29fe-44d6-84dd-51eb05fa4b96
+ref table olist_products_dataset
+ref table LocalDateTable_e5aac855-19cd-42a0-a25e-66a1b0cf8f0a
+ref table product_category_name_translation
+ref table Table
+ref table olist_order_payments_dataset
+ref table olist_order_reviews_dataset
+ref table LocalDateTable_f0f48050-c579-4e07-9573-2a9a16e1e717
+ref table LocalDateTable_35f06404-3ca6-4d10-803b-e4eb3099ecfe
+ref table olist_geolocation_dataset
+
+ref cultureInfo en-US
+

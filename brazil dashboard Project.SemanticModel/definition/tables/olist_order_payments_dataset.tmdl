@@ -1,0 +1,84 @@
+table olist_order_payments_dataset
+	lineageTag: bdb8a39c-2b9c-495c-bb06-1d7a3b971dde
+
+	measure 'Top Payment type' = TOPN(1,VALUES('olist_order_payments_dataset'[payment_type]))
+		lineageTag: ea0e4fff-1710-4994-ab6e-0a3fafa39634
+
+	measure 'Credit Card' =
+			CALCULATE(COUNT(olist_order_payments_dataset[payment_type]),olist_order_payments_dataset[payment_type]="Credit Card"
+			)
+		formatString: 0
+		lineageTag: a8228bb2-2fab-45c4-b3a7-7d6ff143a5c0
+
+	measure 'Credit Card %' = ```
+			DIVIDE([Credit Card],COUNT(olist_order_payments_dataset[payment_type])) 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 81ec87e0-174a-4007-a8cc-74e6539e4d73
+
+	measure Revenue = ```
+			SUM(olist_order_payments_dataset[payment_value]) 
+			```
+		formatString: 0
+		lineageTag: 9ee4f149-e9d3-4285-9551-cff6c43b65a4
+
+	column order_id
+		dataType: string
+		lineageTag: aa3da8b4-4d54-4182-8b02-03babb26a6cb
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_sequential
+		dataType: int64
+		formatString: 0
+		lineageTag: a8bd36cd-76f9-4fb4-a567-d1c5d5993039
+		summarizeBy: sum
+		sourceColumn: payment_sequential
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: 19d138fe-3ee1-4641-b68e-6cad54438c1e
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		lineageTag: a5aa9118-a575-4815-a4f6-2a1275fcdd68
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_value
+		dataType: double
+		lineageTag: 58cccd06-a53c-48ea-938f-8e4f86eaea74
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition olist_order_payments_dataset = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\My office\archive\olist_order_payments_dataset.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"order_id", type text}, {"payment_sequential", Int64.Type}, {"payment_type", type text}, {"payment_installments", Int64.Type}, {"payment_value", type number}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","_"," ",Replacer.ReplaceText,{"payment_type"}),
+				    #"Capitalized Each Word" = Table.TransformColumns(#"Replaced Value",{{"payment_type", Text.Proper, type text}})
+				in
+				    #"Capitalized Each Word"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
