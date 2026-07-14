@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "brazil dashboard Project"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "39e824c5-30ed-4fee-b65f-969411be0b59"
+  }
+}
