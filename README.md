@@ -98,7 +98,7 @@ PowerBI-Portfolio/
 
 ## 📸 Dashboard Preview
 
-## Executive Dashboard
+##   Overview Dashboard
 
 ![Overview Dashboard](https://github.com/hemnath-0767/PowerBI-Portfolio/blob/main/screenshots/brazil%20dashboard_page-0001.jpg)
 
