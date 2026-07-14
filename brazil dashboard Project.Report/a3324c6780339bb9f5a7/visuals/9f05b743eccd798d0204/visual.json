@@ -1,0 +1,213 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "9f05b743eccd798d0204",
+  "position": {
+    "x": 171.69230769230771,
+    "y": 182.38464263001438,
+    "z": 48000,
+    "height": 290.76923076923077,
+    "width": 522,
+    "tabOrder": 35000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "   ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  },
+                  {
+                    "value": "KEY FINDINGS",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "12pt",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "   Strong Revenue Growth",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "    Total revenue of $14.4M, up by 20.18% compared to last year.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#000801"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "   Top Performing Category",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "    Health Beauty is the top revenue generator ($1.36M), contributing 21.29% of total revenue.",
+                    "textStyle": {
+                      "fontSize": "9pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "  ",
+                    "textStyle": {
+                      "color": "#0a6e13"
+                    }
+                  },
+                  {
+                    "value": " Top Performing Region",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "    Sao Paulo leads in both revenue and order volume, contributing the highest share.",
+                    "textStyle": {
+                      "fontSize": "9pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "   ",
+                    "textStyle": {
+                      "color": "#0a6e13"
+                    }
+                  },
+                  {
+                    "value": "Healthy Customer Spending",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "    Average order value is $145, showing strong customer purchasing behavior.",
+                    "textStyle": {
+                      "fontSize": "9pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "   High Customer Retention",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "color": "#0a6e13"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "    Repeat purchase rate of 22.34% indicates good customer loyalty.",
+                    "textStyle": {
+                      "fontSize": "9pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
