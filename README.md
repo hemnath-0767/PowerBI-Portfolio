@@ -127,7 +127,13 @@ The dashboard is built using a sales dataset in CSV format.
 > The original dataset has been reduced/sampled where necessary to comply with GitHub file upload limitations.
 
 ---
+## Download PBIX File
 
+The Power BI (.pbix) file is available here:
+
+[Download PBIX](https://drive.google.com/file/d/1CzkABZjQSkNvrt2lvwPM2e4DZ2Bar5Pk/view?usp=sharing)
+
+---
 # 🚀 Future Improvements
 
 - Forecasting using Time Intelligence
