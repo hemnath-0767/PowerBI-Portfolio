@@ -86,12 +86,11 @@ This project demonstrates the complete Power BI workflow—from data cleaning an
 PowerBI-Portfolio/
 │
 ├── Brazil Dashboard/
-│   ├── brazil dashboard Project.pbip
+│   ├── Dataset/
 │   ├── brazil dashboard Project.Report/
 │   ├── brazil dashboard Project.SemanticModel/
-│   ├── Dataset/
 │   ├── screenshots/
-│   └── README.md
+│   ├── README.md
 ```
 
 ---
